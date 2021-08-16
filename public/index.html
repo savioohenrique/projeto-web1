@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Projetos</title>
+</head>
+<body>
+
+	<h1>Projetos</h1>
+
+	<div>
+		<label>Número / Ano Registro</label>
+		<input type="text" name="ano-registro" id="anoRegistro">
+	</div>
+
+	<div>
+		<label>Projeto</label>
+		<input type="text" name="projeto" id="projeto">
+	</div>
+
+	<div>
+		<label>Número FUNPEC</label>
+		<input type="text" name="numeroFunpec" id="numeroFunpec">
+	</div>
+
+	<div>
+		<label>Título do Projeto</label>
+		<input type="text" name="tituloProjeto" id="tituloProjeto">
+	</div>
+
+	<div>
+		<label>Âmbito</label>
+		<select id="ambito">
+			<option></option>
+			<option value="0">Municipal</option>
+			<option value="1">Estadual</option>
+			<option value="2">Nacional</option>
+			<option value="3">Internacional</option>
+		</select>
+	</div>
+
+	<div>
+		<label>Parceiro</label>
+		<input type="text" name="parceiro" id="parceiro">
+	</div>
+
+	<div>
+		<label>Tipo de Financiamento</label>
+		<select id="tipoFinanciamento">
+			<option></option>
+			<option value="0">Privado</option>
+			<option value="1">Público - Municipal</option>
+			<option value="2">Público - Estadual</option>
+			<option value="3">Público - Federal</option>
+		</select>
+	</div>
+
+	<div>
+		<label>Classificação do Projeto</label>
+		<select id="classificacaoProjeto">
+			<option></option>
+			<option value="0">Acordos, termos e contratos</option>
+			<option value="1">Evento</option>
+			<option value="2">Ensino - Especialização (Residência)</option>
+			<option value="3">Ensino - Mestrado Profissional</option>
+			<option value="4">PD&I</option>
+			<option value="5">PD&I - Lei da Informática</option>
+		</select>
+	</div>
+
+	<div>
+		<label>Tipo de Captação do Recurso</label>
+		<select id="tipoCaptacao">
+			<option></option>
+			<option value="0">A</option>
+			<option value="1">B</option>
+			<option value="2">C</option>
+			<option value="3">D</option>
+		</select>
+	</div>
+
+	<div>
+		<label>Data Início</label>
+		<input type="date" id="dataInicio">
+	</div>
+
+	<div>
+		<label>Data Fim</label>
+		<input type="date" id="dataFim">
+	</div>
+
+	<div>
+		<label>Status</label>
+		<select id="status">
+			<option></option>
+			<option value="0">Ativo</option>
+			<option value="1">Vencido</option>
+			<option value="2">Registrado</option>
+			<option value="3">Cancelado</option>
+		</select>
+	</div>
+
+	<div>
+		<label>Valor R$</label>
+		<input type="text" id="valor">
+	</div>
+
+	<div>
+		<label>Unidade Interessada</label>
+		<input type="text" id="unidade">
+	</div>
+
+	<div>
+		<label>Nome Coordenador</label>
+		<input type="text" id="nomeCoordenador">
+	</div>
+
+	<div>
+		<label>Unidade Acadêmica do Coordenador</label>
+		<input type="text" id="unidadeAcademicaCoordenador">
+	</div>
+
+	<div>
+		<label>Quantidade de Docentes</label>
+		<input type="number" id="quantidadeDocentes">
+	</div>
+
+	<div>
+		<label>Bolsista Graduação</label>
+		<input type="number" id="quantidadeGraduacao">
+	</div>
+
+	<div>
+		<label>Bolsista Especialista</label>
+		<input type="number" id="quantidadeEspecializacao">
+	</div>
+
+	<div>
+		<label>Bolsista Mestrado</label>
+		<input type="number" id="quantidadeMestrado">
+	</div>
+
+	<div>
+		<label>Bolsista Doutorado</label>
+		<input type="number" id="quantidadeDoutorado">
+	</div>
+
+	<div>
+		<label>Especialista convidado</label>
+		<input type="number" id="quantidadeConvidado">
+	</div>
+
+	<div>
+		<label>CLT</label>
+		<input type="number" id="quantidadeCLT">
+	</div>
+
+	<div>
+		<label>Técnico UFRN</label>
+		<input type="number" id="quantidadeTecnico">
+	</div>
+
+	<div>
+		<label>Quantidade de Aditivos</label>
+		<input type="text" id="quantidadeAditivos">
+	</div>
+
+	<div>
+		<label>Tipos de Aditivos</label>
+		<select id="tipoAditivo">
+			<option></option>
+			<option value="0">Prazo</option>
+			<option value="1">Valor</option>
+			<option value="2">Prazo e Valor</option>
+			<option value="3">Modificação de metas ou outros</option>
+			<option value="4">Nenhum</option>
+		</select>
+	</div>
+
+	<div>
+		<label>Data dos Aditivos</label>
+		<input type="date" id="dataAditivo">
+	</div>
+
+	<div>
+		<label>Descrição do Aditivo</label>
+		<input type="text" id="descricaoAditivo">
+	</div>
+
+	<button onclick="adicionaProjeto()">Salvar</button>
+
+	<hr>
+
+	<button onclick="listarProjetos()">Listar Projetos</button>
+
+	<h2>Novos Projetos</h2>
+	<div>
+		<ul id="projetosNovos">
+			
+		</ul>
+	</div>
+	
+	<script type="text/javascript" src="script.js"></script>
+
+</body>
+</html>
