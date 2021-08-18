@@ -84,7 +84,7 @@ let adicionaProjeto = function () {
 
 
 
-let adicionaProjetoDB = function () {
+let adicionaProjetoDB = async function () {
     console.log("Cadastrando novo projeto...");
 
     let anoRegistro = document.getElementById("anoRegistro");
@@ -151,12 +151,16 @@ let adicionaProjetoDB = function () {
     console.log();
     console.log(JSON.stringify(projeto));
 
+    await postProjeto('http://localhost:3000/projetos', projeto);
+
 };
 
-let listarProjetos = function () {
-    let projetos = buscarProjetos();
+let listarProjetos = async function () {
+    let projetos = await buscarProjetos();
 
+    console.log('Listando projetos')
     console.log(projetos);
+    console.log();
 }
 
 
@@ -176,6 +180,25 @@ async function buscarProjetos() {
     }
 
 };
+
+async function postProjeto(urlToPost, resourceToPost){
+    try {
+        let response = await fetch(urlToPost, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-type': 'application/json',
+                'Access-Control-Request-Method': 'POST'                
+            },
+            body: JSON.stringify(resourceToPost)
+        });
+        let msg = await response.json();
+        console.log(msg ? msg : response);
+        return msg;
+    } catch (error) {
+        console.log(error)
+    }
+}
 
 
 
