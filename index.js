@@ -2,54 +2,52 @@ const express = require('express')
 
 const server = express()
 
+const db = require('./db')
+
 server.use(express.json())
 
-const cursos = ['fullstack master', 'Web 1', 'Projetos']
-
-//Retorna um curso
-server.get('/cursos/:index', (req, res) => {
-    const { index } = req.params
-
-    return res.json(cursos[index])
-})
-
-//Retorna todos os cursos
+//Retorna todos os projetos
 server.get('/projetos', async (req, res) => {
-    // return res.json(cursos)
-    (async () => {
-        console.log('Buscando projetos...')
-        const db = require('./db')
-        const projetos = await db.selectProjetos()
-        console.log(projetos)
-        res.setHeader('Access-Control-Allow-Origin', '*')
-        return res.json(projetos)      
-    })();
+    console.log('Buscando projetos...')
+    const projetos = await db.selectProjetos()
+    console.log(projetos)
+    res.setHeader('Access-Control-Allow-Origin', '*')
+    return res.json(projetos)      
 })
 
-//Cria um curso
-server.post('/cursos', (req, res) => {
-    const { name } = req.body;
-    cursos.push(name)
+//Cria um projeto
+server.post('/projetos', async (req, res) => {
+    console.log('Adicionando projeto...');
+
+    const [projeto] = JSON.parse(req.body)
+
+    console.log(projeto)
+    res.setHeader('Access-Control-Allow-Origin', '*')
+    res.setHeader('Access-Control-Allow-Methods', 'POST')
+
+    // console.log('SELECT * FROM CLIENTES');
+    const projetos = await db.selectProjetos();
+    // console.log(projetos);
+
+    // console.log('INSERT INTO projetos');
+    // const result = await db.insertCustomer(projeto);
+    // console.log(result);
+
+    // console.log('SELECT * FROM CLIENTES');
+    // const clientes = await db.selectCustomers();
+    // console.log(clientes);
+
+    // return res.json(projetos)
+})
+
+// Atualizar um projeto
+server.put('/projetos/:index', async (req, res) => {
     
-    return res.json(cursos)
 })
 
-// Atualizar um curso
-server.put('/cursos/:index', (req, res) => {
-    const { index } = req.params
-    const { name } = req.body
-
-    cursos[index] = name;
-
-    return res.json(cursos)
-})
-
-// Deletar um curso
-server.delete('/cursos/:index', (req, res) => {
-    const { index } = req.params
-
-    cursos.slice(index, 1)
-    return res.json({ message : "O curso foi deletado"})
+// Deletar um projeto
+server.delete('/projetos/:index', async (req, res) => {
+    
 })
 
 server.listen(3000)

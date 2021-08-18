@@ -1,25 +1,10 @@
-
-// const mysql = require('mysql2/promise')
-
-// var con = mysql.createConnection({
-//     host: "localhost",
-//     user: "root",
-//     password: "rootmysql",
-//     port: 3306
-//   });
-
-//   con.connect(function(err) {
-//     if (err) throw err;
-//     console.log("Connected!");
-//   });
- 
 async function connect(){
     if (global.connection && global.connection.state !== 'disconnected')
         return global.connection;
 
     const mysql = require('mysql2/promise');
     const connection = await mysql.createConnection("mysql://root:rootmysql@localhost:3306/projetos");
-    console.log("Conexão realizada");
+    console.log("Conexão estabelecida");
     globalThis.connection = connection;
 
     return connection;
@@ -37,6 +22,11 @@ async function selectProjetos(){
     return rows;
 }
 
-// console.log(selectProjetos())
+async function insertProjeto(projeto){
+    const conn = await connect();
+    const sql = 'INSERT INTO projetos(numero_ano_registro, projeto, numero_funpec, titulo_projeto, ambito_id, parceiro, tipo_financiamento_id, classificacao_projeto_id, tipo_captacao_recurso_id, data_inicio, data_fim, status_id, valor, unidade_interessada, nome_coordenador, unidade_academica_coordenador, docentes, bolsista_graduacao, bolsista_especialista, bolsista_mestrado, bolsista_doutorado, especialista_convidado, clt, tecnico_ufrn) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);';
+    const values = [customer.nome, customer.idade, customer.uf];
+    return await conn.query(sql, values);
+}
 
-module.exports = {selectProjetos}
+module.exports = {selectProjetos, connect, insertProjeto}
