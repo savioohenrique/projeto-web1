@@ -80,10 +80,6 @@ let adicionaProjeto = function () {
     adicionaProjetoDB();
 };
 
-
-
-
-
 let adicionaProjetoDB = async function () {
     console.log("Cadastrando novo projeto...");
 
@@ -147,12 +143,7 @@ let adicionaProjetoDB = async function () {
         "descricaoAditivo" : descricaoAditivo.value 
     };
 
-    console.log(projeto);
-    console.log();
-    console.log(JSON.stringify(projeto));
-
-    await postProjeto('http://localhost:3000/projetos', projeto);
-
+    await postProjeto(JSON.stringify(projeto))
 };
 
 let listarProjetos = async function () {
@@ -181,16 +172,18 @@ async function buscarProjetos() {
 
 };
 
-async function postProjeto(urlToPost, resourceToPost){
+async function postProjeto(resourceToPost){
+    console.log(resourceToPost)
+
     try {
-        let response = await fetch(urlToPost, {
+        let response = await fetch('http://localhost:3000/projetos', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
                 'Content-type': 'application/json',
-                'Access-Control-Request-Method': 'POST'                
+                'Access-Control-Request-Method': 'POST'               
             },
-            body: JSON.stringify(resourceToPost)
+            body: resourceToPost
         });
         let msg = await response.json();
         console.log(msg ? msg : response);
@@ -199,9 +192,6 @@ async function postProjeto(urlToPost, resourceToPost){
         console.log(error)
     }
 }
-
-
-
 
 let removerProjeto = function () {
     console.log("Removendo projeto...");
