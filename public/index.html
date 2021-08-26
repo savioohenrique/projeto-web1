@@ -1,206 +1,241 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt">
+
 <head>
-	<meta charset="utf-8">
-	<title>Projetos</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <link href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <!-- dataTables -->
+    <link href="https://cdn.datatables.net/buttons/1.7.1/css/buttons.dataTables.min.css" rel="stylesheet">
+    <!-- dataTables -->
+
 </head>
+
 <body>
+    <div class="container">
+        <!-- Button to Open the Modal -->
+        <div class="d-grid gap-2 col-12 mx-auto" style="margin-top: 2em;">
+            <button id="btnInserirProjeto" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
+                Inserir Projeto
+            </button>
+        </div>
 
-	<h1>Projetos</h1>
+        <!-- The Modal -->
+        <div class="modal" id="myModal">
+            <div class="modal-dialog modal-dialog-scrollable">
+                <div class="modal-content">
 
-	<div>
-		<label>Número / Ano Registro</label>
-		<input type="text" name="ano-registro" id="anoRegistro">
-	</div>
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h1 class="modal-title">Projeto</h1>
+                        <button type="button" class="close btn btn-outline-secondary" data-bs-dismiss="modal">×</button>
+                    </div>
 
-	<div>
-		<label>Projeto</label>
-		<input type="text" name="projeto" id="projeto">
-	</div>
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="anoRegistro" class="col-form-label">Número / Ano Registro</label>
+                                <input type="text" name="ano-registro" id="anoRegistro" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="projeto" class="col-form-label">Projeto</label>
+                                <input type="text" name="projeto" id="projeto" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="numeroFunpec" class="col-form-label">Número FUNPEC</label>
+                                <input type="text" name="numeroFunpec" id="numeroFunpec" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="tituloProjeto" class="col-form-label">Título do Projeto</label>
+                                <input type="text" name="tituloProjeto" id="tituloProjeto" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="ambito" class="col-form-label">Âmbito</label>      
+                                <select id="ambito" class="form-select">
+                                    <option></option>
+                                    <option value="1">Municipal</option>
+                                    <option value="2">Estadual</option>
+                                    <option value="3">Nacional</option>
+                                    <option value="4">Internacional</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="parceiro" class="col-form-label">Parceiro</label>
+                                <input type="text" name="parceiro" id="parceiro" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="tipoFinanciamento" class="col-form-label">Tipo de Financiamento</label>
+                                <select id="tipoFinanciamento" class="form-select">
+                                    <option></option>
+                                    <option value="1">Privado</option>
+                                    <option value="2">Público - Municipal</option>
+                                    <option value="3">Público - Estadual</option>
+                                    <option value="4">Público - Federal</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="classificacaoProjeto" class="col-form-label">Classificação do Projeto</label>
+                                <select id="classificacaoProjeto" class="form-select">
+                                    <option></option>
+                                    <option value="1">Acordos, termos e contratos</option>
+                                    <option value="2">Evento</option>
+                                    <option value="3">Ensino - Especialização (Residência)</option>
+                                    <option value="4">Ensino - Mestrado Profissional</option>
+                                    <option value="5">PD&I</option>
+                                    <option value="6">PD&I - Lei da Informática</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="tipoCaptacao" class="col-form-label">Tipo de Captação do Recurso</label>                                
+                                <select id="tipoCaptacao" class="form-select">
+                                    <option></option>
+                                    <option value="1">A</option>
+                                    <option value="2">B</option>
+                                    <option value="3">C</option>
+                                    <option value="4">D</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="dataInicio" class="col-form-label">Data Início</label>
+                                <input type="date" id="dataInicio" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="dataFim" class="col-form-label">Data Fim</label>
+		                        <input type="date" id="dataFim" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="status" class="col-form-label">Status</label>
+                                <select id="status" class="form-select">
+                                    <option></option>
+                                    <option value="1">Ativo</option>
+                                    <option value="2">Vencido</option>
+                                    <option value="3">Registrado</option>
+                                    <option value="4">Cancelado</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="valor" class="col-form-label">Valor R$</label>
+                                <input type="text" id="valor" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="unidade" class="col-form-label">Unidade Interessada</label>
+                                <input type="text" id="unidade" class="form-control" >
+                            </div>
+                            <div class="form-group">
+                                <label for="nomeCoordenador" class="col-form-label">Nome Coordenador</label>
+                                <input type="text" id="nomeCoordenador" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="unidadeAcademicaCoordenador" class="col-form-label">Unidade Acadêmica do Coordenador</label>
+                                <input type="text" id="unidadeAcademicaCoordenador" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="quantidadeDocentes" class="col-form-label">Quantidade de Docentes</label>
+                                <input type="number" id="quantidadeDocentes" class="form-control" >
+                            </div>
+                            <div class="form-group">
+                                <label for="quantidadeGraduacao" class="col-form-label">Bolsista Graduação</label>
+                                <input type="number" id="quantidadeGraduacao" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="quantidadeEspecializacao" class="col-form-label">Bolsista Especialista</label>
+                                <input type="number" id="quantidadeEspecializacao" class="form-control" >
+                            </div>
+                            <div class="form-group">
+                                <label for="quantidadeMestrado" class="col-form-label">Bolsista Mestrado</label>
+                                <input type="number" id="quantidadeMestrado" class="form-control" >
+                            </div>
+                            <div class="form-group">
+                                <label for="quantidadeDoutorado" class="col-form-label">Bolsista Doutorado</label>
+                                <input type="number" id="quantidadeDoutorado"  class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="quantidadeConvidado" class="col-form-label">Especialista convidado</label>
+                                <input type="number" id="quantidadeConvidado" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="quantidadeCLT" class="col-form-label">CLT</label>
+                                <input type="number" id="quantidadeCLT" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="quantidadeTecnico" class="col-form-label">Técnico UFRN</label>
+                                <input type="number" id="quantidadeTecnico" class="form-control">
+                            </div>
+                        </form>
+                    </div>
 
-	<div>
-		<label>Número FUNPEC</label>
-		<input type="text" name="numeroFunpec" id="numeroFunpec">
-	</div>
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <div class="d-grid gap-2 col-12 mx-auto">
+                            <button id="btnConfirmarForm" type="button" class="btn btn-outline-success">Confirmar</button>
+                        </div>
+                    </div>
 
-	<div>
-		<label>Título do Projeto</label>
-		<input type="text" name="tituloProjeto" id="tituloProjeto">
-	</div>
+                </div>
+            </div>
+        </div>
 
-	<div>
-		<label>Âmbito</label>
-		<select id="ambito">
-			<option></option>
-			<option value="1">Municipal</option>
-			<option value="2">Estadual</option>
-			<option value="3">Nacional</option>
-			<option value="4">Internacional</option>
-		</select>
-	</div>
+    </div>
+    <div class="container mb-3 mt-3">
+        <table id="table" class="table table-striped table-bordered" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Número / Ano registro</th>
+                    <th>Projeto</th>
+                    <th>Número Funpec</th>
+                    <th>Título do Projeto</th>
+                    <th>Âmbito</th>
+                    <th>Parceiro</th>
+                    <th>Financiamento</th>
+                    <th>Classificação</th>
+                    <th>Tipo de captação</th>
+                    <th>Data início</th>
+                    <th>Data fim</th>
+                    <th>Status</th>
+                    <th>Valor</th>
+                    <th>Unidade interessada</th>
+                    <th>Nome do coordenador</th>
+                    <th>Unidade acadêmica do coordenador</th>
+                    <th>Quantidade docentes</th>
+                    <th>Quantidade de bolsistas (graduação)</th>
+                    <th>Quantidade de bolsistas (especialista)</th>
+                    <th>Quantidade de bolsistas (mestrado)</th>
+                    <th>Quantidade de bolsistas (doutorado)</th>
+                    <th>Quantidade de especialistas convidados</th>
+                    <th>Quantidade CLT</th>
+                    <th>Quantidade de técnicos da UFRN</th>
+                </tr>
+            </thead>
+            <tbody>
 
-	<div>
-		<label>Parceiro</label>
-		<input type="text" name="parceiro" id="parceiro">
-	</div>
+            </tbody>
+        </table>
+    </div>
 
-	<div>
-		<label>Tipo de Financiamento</label>
-		<select id="tipoFinanciamento">
-			<option></option>
-			<option value="1">Privado</option>
-			<option value="2">Público - Municipal</option>
-			<option value="3">Público - Estadual</option>
-			<option value="4">Público - Federal</option>
-		</select>
-	</div>
+    <!-- jquery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"
+        integrity="sha512-n/4gHW3atM3QqRcbCn6ewmpxcLAHGaDjpEBu4xZd47N0W2oQ+6q7oc3PXstrJYXcbNU1OHdQ1T7pAP+gi5Yu8g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- dataTables -->
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.7.1/js/dataTables.buttons.min.js"></script>
+    <!-- bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"
+        integrity="sha384-eMNCOe7tC1doHpGoWe/6oMVemdAVTMs2xqW4mwXrXsW0L84Iytr2wi5v2QjrP/xp"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js"
+        integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/"
+        crossorigin="anonymous"></script>
 
-	<div>
-		<label>Classificação do Projeto</label>
-		<select id="classificacaoProjeto">
-			<option></option>
-			<option value="1">Acordos, termos e contratos</option>
-			<option value="2">Evento</option>
-			<option value="3">Ensino - Especialização (Residência)</option>
-			<option value="4">Ensino - Mestrado Profissional</option>
-			<option value="5">PD&I</option>
-			<option value="6">PD&I - Lei da Informática</option>
-		</select>
-	</div>
-
-	<div>
-		<label>Tipo de Captação do Recurso</label>
-		<select id="tipoCaptacao">
-			<option></option>
-			<option value="1">A</option>
-			<option value="2">B</option>
-			<option value="3">C</option>
-			<option value="4">D</option>
-		</select>
-	</div>
-
-	<div>
-		<label>Data Início</label>
-		<input type="date" id="dataInicio">
-	</div>
-
-	<div>
-		<label>Data Fim</label>
-		<input type="date" id="dataFim">
-	</div>
-
-	<div>
-		<label>Status</label>
-		<select id="status">
-			<option></option>
-			<option value="1">Ativo</option>
-			<option value="2">Vencido</option>
-			<option value="3">Registrado</option>
-			<option value="4">Cancelado</option>
-		</select>
-	</div>
-
-	<div>
-		<label>Valor R$</label>
-		<input type="text" id="valor">
-	</div>
-
-	<div>
-		<label>Unidade Interessada</label>
-		<input type="text" id="unidade">
-	</div>
-
-	<div>
-		<label>Nome Coordenador</label>
-		<input type="text" id="nomeCoordenador">
-	</div>
-
-	<div>
-		<label>Unidade Acadêmica do Coordenador</label>
-		<input type="text" id="unidadeAcademicaCoordenador">
-	</div>
-
-	<div>
-		<label>Quantidade de Docentes</label>
-		<input type="number" id="quantidadeDocentes">
-	</div>
-
-	<div>
-		<label>Bolsista Graduação</label>
-		<input type="number" id="quantidadeGraduacao">
-	</div>
-
-	<div>
-		<label>Bolsista Especialista</label>
-		<input type="number" id="quantidadeEspecializacao">
-	</div>
-
-	<div>
-		<label>Bolsista Mestrado</label>
-		<input type="number" id="quantidadeMestrado">
-	</div>
-
-	<div>
-		<label>Bolsista Doutorado</label>
-		<input type="number" id="quantidadeDoutorado">
-	</div>
-
-	<div>
-		<label>Especialista convidado</label>
-		<input type="number" id="quantidadeConvidado">
-	</div>
-
-	<div>
-		<label>CLT</label>
-		<input type="number" id="quantidadeCLT">
-	</div>
-
-	<div>
-		<label>Técnico UFRN</label>
-		<input type="number" id="quantidadeTecnico">
-	</div>
-
-	<div>
-		<label>Quantidade de Aditivos</label>
-		<input type="text" id="quantidadeAditivos">
-	</div>
-
-	<div>
-		<label>Tipos de Aditivos</label>
-		<select id="tipoAditivo">
-			<option></option>
-			<option value="1">Prazo</option>
-			<option value="2">Valor</option>
-			<option value="3">Prazo e Valor</option>
-			<option value="4">Modificação de metas ou outros</option>
-			<option value="5">Nenhum</option>
-		</select>
-	</div>
-
-	<div>
-		<label>Data dos Aditivos</label>
-		<input type="date" id="dataAditivo">
-	</div>
-
-	<div>
-		<label>Descrição do Aditivo</label>
-		<input type="text" id="descricaoAditivo">
-	</div>
-
-	<button onclick="adicionaProjeto()">Salvar</button>
-
-	<hr>
-
-	<button onclick="listarProjetos()">Listar Projetos</button>
-
-	<h2>Novos Projetos</h2>
-	<div>
-		<ul id="projetosNovos">
-			
-		</ul>
-	</div>
-	
-	<script type="text/javascript" src="script.js"></script>
+    <script type="text/javascript" src="script.js"></script>
 
 </body>
+
 </html>
