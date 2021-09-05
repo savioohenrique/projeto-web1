@@ -5,7 +5,7 @@ const db = require('./db')
 
 const server = express()
 
-server.use("/static", express.static("public"))
+// server.use("/static", express.static("public"))
 
 server.use((req, res, next) => {
 	//Qual site tem permissão de realizar a conexão, no exemplo abaixo está o "*" indicando que qualquer site pode fazer a conexão
@@ -28,9 +28,9 @@ server.get('/script.js', async (req, res) => {
 
 //Retorna todos os projetos
 server.get('/projetos', async (req, res) => {
-    console.log('Buscando projetos...')
+    console.log('Buscando projetos ...')
     const projetos = await db.selectProjetos()
-    // console.log(projetos)
+
     return res.json(projetos)      
 })
 
@@ -38,40 +38,42 @@ server.get('/projetos', async (req, res) => {
 server.post('/projetos', async (req, res) => {
     const projeto = req.body
 
-    console.log('Adicionando projeto...');
-    const result = await db.insertProjeto(projeto);
-    console.log(result);
+    console.log('Adicionando novo projeto ...')
+    const result = await db.insertProjeto(projeto)
+    console.log(result)
 
-    console.log('Buscando projetos...');
-    const projetos = await db.selectCustomers()
-    console.log(projetos);
+    const projetos = await db.selectProjetos()
     
     return res.json(projetos)
 })
 
 // Atualizar um projeto
-server.put('/projetos/:index', async (req, res) => {
-    console.log('Atualizando projeto...');
-
+server.put('/projetos&id=:index', async (req, res) => {
     const id = req.params['index']
+    console.log('Atualizando projeto ' + id + ' ...')
+
     const projeto = req.body
 
     const result = await db.updateProjeto(id, projeto)
     console.log(result)
+
+    const projetos = await db.selectProjetos()
     
-    return res.json(result)
+    return res.json(projetos)
 })
 
 // Deletar um projeto
-server.delete('/projetos/:index', async (req, res) => {
-    console.log('Deletando projeto...');
-
+server.delete('/projetos&id=:index', async (req, res) => {
     const id = req.params['index']
+    console.log('Deletando projeto ' + id + ' ...');
 
     const result = await db.deleteProjeto(id)
     console.log(result)
     
-    return res.json(result)
+    const projetos = await db.selectProjetos()
+    
+    return res.json(projetos)
 })
 
 server.listen(3000)
+console.log('Servidor rodando na porta 3000...')
