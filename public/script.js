@@ -3,14 +3,6 @@
 const btnGroupStr = '<div class="btn-group"><a class="btn btn-primary btnEdtitar btn-sm" data-bs-toggle="modal" data-bs-target="#modalInserirEditar" href=#/>' + 'Editar' + '</a>'
 + '<a class="btn btn-danger btn-sm btnExcluir" data-bs-toggle="modal" data-bs-target="#modalExcluir" href=#/>' + 'Excluir' + '</a>' + "</div>";
 
-//Formatar data
-// function formataData(data){
-//   if (data < 10){
-//     data = '0' + data;
-//   }
-//   return data;
-// }
-
 function formataDataModal(data){
     let dataArray = data.split('/');
     let dataFormatada = (dataArray[2] + "-" + dataArray[1] + "-" + dataArray[0]) ; 
@@ -59,6 +51,91 @@ function atualizarTabela(projetos){
   datatable.draw();
 }
 
+function validaProjeto(projeto){
+    let error = [];
+    if (projeto['anoregistro'] == ''){
+        error.push('Numero/Ano Registro deve ser informado');
+    }
+    if (projeto['projeto'] == ''){
+        error.push('o campo projeto deve ser informado');
+    }
+    if (projeto['tituloProjeto'] == ''){
+        error.push('O titulo do projeto deve ser informado');
+    }
+    if (projeto['ambito'] == '' || projeto['ambito'] == 0){
+        error.push('O ambito deve ser informado');
+    }
+    if (projeto['parceiro'] == ''){
+        error.push('O parceiro deve ser informado');
+    }
+    if (projeto['tipoFinanciamento'] == '' || projeto['tipoFinanciamento'] == 0){
+        error.push('O tipo de financiamento deve ser informado');
+    }
+    if (projeto['classificacaoProjeto'] == '' || projeto['classificacaoProjeto'] == 0){
+        error.push('A classificação do projeto deve ser informada');
+    }
+    if (projeto['tipoCaptacao'] == '' || projeto['tipoCaptacao'] == 0){
+        error.push('O tipo de captação do recurso deve ser informado');
+    }
+    if (projeto['status'] == '' || projeto['status'] == 0){
+        error.push('O status deve ser informado');
+    }
+    if (projeto['unidade'] == ''){
+        error.push('A unidade interessada deve ser informada');
+    }
+    if (projeto['numeroFunpec'] == ''){
+        error.push('O número Funpec deve ser informado');
+    }
+    if (projeto['dataInicio'] == ''){
+        error.push('A data de início deve ser informada');
+    }
+    if (projeto['dataFim'] == ''){
+        error.push('A data fim deve ser informada');
+    }
+    if (projeto['valor'] == ''){
+        error.push('O valor deve ser informado');
+    }
+    if (projeto['nomeCoordenador'] == ''){
+        error.push('Nome Coordenador(a) deve ser informado');
+    }
+    if (projeto['unidadeAcademicaCoordenador'] == ''){
+        error.push('A unidade acadêmica do(a) coordenador(a) deve ser informada');
+    }
+    if (projeto['quantidadeDocentes'] == ''){
+        error.push('A quantidade de docentes deve ser informada');
+    }
+    if (projeto['quantidadeGraduacao'] == ''){
+        error.push('A quantidade de bolsistas de graduação deve ser informada');
+    }
+    if (projeto['quantidadeEspecializacao'] == ''){
+        error.push('A quantidade de quantidade de bolsistas especialistas deve ser informada');
+    }
+    if (projeto['quantidadeMestrado'] == ''){
+        error.push('A quantidade de quantidade de mestrado deve ser informada');
+    }
+    if (projeto['quantidadeDoutorado'] == ''){
+        error.push('A quantidade de bolsistas de doutorado deve ser informada');
+    }
+    if (projeto['quantidadeConvidado'] == ''){
+        error.push('A quantidade de especialistas convidados deve ser informada');
+    }
+    if (projeto['quantidadeCLT'] == ''){
+        error.push('A quantidade de profissionais CLT deve ser informada');
+    }
+    if (projeto['quantidadeTecnico'] == ''){
+        error.push('A quantidade de técnicos da UFRN deve ser informada');
+    }
+
+    if (error.length != 0){
+        console.log('Projeto possui erros');
+        console.log(error);
+        return false;
+    } else {
+        console.log('Projeto está OK');
+        return true;
+    }
+}
+
 
 async function adicionarProjetoDB() {
     console.log("Cadastrando novo projeto...");
@@ -66,7 +143,12 @@ async function adicionarProjetoDB() {
     let projeto = projetoArray();
     console.log(projeto);
 
-    await postProjeto('http://localhost:3000/projetos', projeto);
+    if (validaProjeto(projeto)){
+        await postProjeto('http://localhost:3000/projetos', projeto);
+    } else {
+        console.log('Erro ao inserir projeto...');
+    }
+
 };
 
 async function atualizaProjetoDB() {
