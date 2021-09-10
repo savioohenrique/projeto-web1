@@ -91,7 +91,8 @@ async function updateProjeto(id, projeto){
 async function deleteProjeto(id) {
     const conn = await connect();
     const sql = 'DELETE FROM projetos WHERE id = ?'
-    return await conn.query(sql, id);
+    const [affectedRows] = await conn.query(sql, id);
+    return affectedRows;
 }
 
 module.exports = {connect, selectProjetos, insertProjeto, updateProjeto, deleteProjeto}

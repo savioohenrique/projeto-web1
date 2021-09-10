@@ -51,8 +51,13 @@ function atualizarTabela(projetos){
   datatable.draw();
 }
 
+function limparMensagensDeErro(){
+    document.getElementById('listaMensagensErro').innerHTML = '';
+}   
+
 function validaProjeto(projeto){
     let error = [];
+
     if (projeto['anoregistro'] == ''){
         error.push('Numero/Ano Registro deve ser informado');
     }
@@ -125,14 +130,44 @@ function validaProjeto(projeto){
     if (projeto['quantidadeTecnico'] == ''){
         error.push('A quantidade de técnicos da UFRN deve ser informada');
     }
+    
+    if ((Date.parse(projeto['dataFim']) - Date.parse(projeto['dataInicio'])) < 0 ){
+        error.push('A data de início não pode ser maior do que a data fim do projeto.');
+    }
 
     if (error.length != 0){
         console.log('Projeto possui erros');
-        console.log(error);
+        
+        let listaMensgens = document.getElementById('listaMensagensErro');
+        let listItem = '';
+        let mensagem = '';
+
+        error.forEach(element => {
+            listItem = document.createElement('li');
+            mensagem  = document.createTextNode(element);
+            listItem.appendChild(mensagem);
+
+            listaMensgens.appendChild(listItem);
+        });
+
         return false;
     } else {
-        console.log('Projeto está OK');
         return true;
+    }
+}
+
+function exibirMensagensDeErro(mensagens){
+    let listaMensgens = document.getElementById('listaMensagensErro');
+    let listItem = '';
+    let mensagem = '';
+ 
+    for (let index = 0; index < mensagens.length; index++) {
+        const element = mensagens[index].texto;
+        listItem = document.createElement('li');
+        mensagem  = document.createTextNode(element);
+        listItem.appendChild(mensagem);  
+        
+        listaMensgens.appendChild(listItem);
     }
 }
 
@@ -141,10 +176,18 @@ async function adicionarProjetoDB() {
     console.log("Cadastrando novo projeto...");
     
     let projeto = projetoArray();
-    console.log(projeto);
 
     if (validaProjeto(projeto)){
-        await postProjeto('http://localhost:3000/projetos', projeto);
+        const resultado = await postProjeto('http://localhost:3000/projetos', projeto);
+
+        if (resultado == true){
+            alert("Projeto cadastrado com sucesso.");
+            listarProjetos();
+        } else {           
+            const mensagens = JSON.parse(JSON.stringify(resultado));
+            alert("Não foi possível inserir o projeto no banco de dados.");
+            return mensagens;
+        }
     } else {
         console.log('Erro ao inserir projeto...');
     }
@@ -159,7 +202,19 @@ async function atualizaProjetoDB() {
     
     let projeto = projetoArray();
 
-    await updateProjeto(url, projeto);
+    if (validaProjeto(projeto)){
+        const resultado = await updateProjeto(url, projeto);
+        if (resultado == true){
+            listarProjetos();
+            return true;
+        } else {
+            const mensagens = JSON.parse(JSON.stringify(resultado));
+            alert("Não foi possível atualizar o projeto no banco de dados.");
+            return mensagens;
+        }
+    } else {
+        console.log('Erro ao atualizar projeto...');
+    }
 };
 
 async function deletarProjetoDB() {
@@ -168,13 +223,19 @@ async function deletarProjetoDB() {
 
     let url = 'http://localhost:3000/projetos&id=' + projetoId;
 
-    await deleteProjeto(url);
+    const resultado = await deleteProjeto(url);
+
+    if(resultado){
+        alert( "Projeto excluído com sucesso!");
+        listarProjetos();
+    } else {
+        alert("Não foi possível excluir o projeto.");
+    }
 };
 
 
 function projetoArray(){
   let projeto = {
-    // "idProjeto" : document.getElementById("idProjeto").value , 
     "anoregistro" : document.getElementById("anoRegistro").value , 
     "projeto" : document.getElementById("projeto").value , 
     "numeroFunpec" : document.getElementById("numeroFunpec").value,
@@ -199,10 +260,6 @@ function projetoArray(){
     "quantidadeConvidado" : document.getElementById("quantidadeConvidado").value, 
     "quantidadeCLT" : document.getElementById("quantidadeCLT").value, 
     "quantidadeTecnico" : document.getElementById("quantidadeTecnico").value, 
-    // "quantidadeAditivos" : document.getElementById("quantidadeAditivos").value, 
-    // "tipoAditivo" : document.getElementById("tipoAditivo").value, 
-    // "dataAditivo" : document.getElementById("dataAditivo").value,
-    // "descricaoAditivo" : document.getElementById("descricaoAditivo").value 
   };
 
   return projeto;
@@ -221,9 +278,6 @@ async function postProjeto(url, projeto){
           body: JSON.stringify(projeto)
       });
       let msg = await response.json();
-      console.log(msg ? msg : response);
-
-      atualizarTabela(msg);
 
       return msg;
   } catch (error) {
@@ -243,9 +297,6 @@ async function updateProjeto(url, projeto){
           body: JSON.stringify(projeto)
       });
       let msg = await response.json();
-      console.log(msg ? msg : response);
-      
-      atualizarTabela(msg);
 
       return msg;
   } catch (error) {
@@ -263,10 +314,7 @@ async function deleteProjeto(url){
           },
       });
       let msg = await response.json();
-      console.log(msg ? msg : response);
       
-      atualizarTabela(msg);
-
       return msg;
   } catch (error) {
       console.log(error)
@@ -281,10 +329,11 @@ $(document).ready(function() {
         scrollX: true,
         scrollCollapse: true,
         bLengthChange: true,
+        info: false,
         language: {
-            "search": "Buscar:",
-            "info": "",
-            "info": "Exibindo de _START_ até _END_ - Total de _TOTAL_ projetos",
+            "search": " ",
+            "searchPlaceholder": "Buscar",
+            // "info": "Exibindo de _START_ até _END_ - Total de _TOTAL_ projetos",
             "paginate": {
                 "first":      "Primeiro",
                 "last":       "Último",
@@ -298,9 +347,12 @@ $(document).ready(function() {
             {
                 extend: 'colvis', // opcao de botao para escolher a visibilidade das colunas
                 text: 'Ativar/desativar colunas',
-                className: 'btn btn-primary',
+                className: 'btn btn-secondary',
             }
         ],
+        fnDrawCallback: function () {
+            $('.buttons-colvis').removeClass('dt-button');
+        },
         bLengthChange: true,
         "columnDefs": [ {
             "targets": 0,
@@ -345,6 +397,8 @@ $(document).ready(function() {
     $('div.container').on( 'click', '#btnInserirProjeto', function () {
       // troca a classe do botao para o modo de inserir projeto
       $('#btnConfirmarForm').addClass('btnConfirmarInserir').removeClass('btnConfirmarEditar');
+      
+      limparMensagensDeErro();
     });
 
     $('#modalInserirEditar').on('hidden.bs.modal', function (e) {
@@ -378,9 +432,8 @@ $(document).ready(function() {
     // botao editar da tabela
     $('#table tbody').on( 'click', '.btnEdtitar', function () {
         const data = tabela.row( $(this).parents('tr') ).data(); // recupera um objeto que representa a row na qual o botao foi clicado
-        console.log(data);
-        console.log(data['numero_ano_registro']);
-        // const dataValues = Object.values(data); // transforma as propriedades do objeto data em um array de valores
+
+        limparMensagensDeErro();
 
         let idProjeto = document.getElementById("idProjeto");
         idProjeto.value = data['id'];
@@ -441,15 +494,6 @@ $(document).ready(function() {
         quantidadeCLT.value = data['clt'];
         let quantidadeTecnico = document.getElementById("quantidadeTecnico");
         quantidadeTecnico.value = data['tecnico_ufrn'];
-
-        // let quantidadeAditivos = document.getElementById("quantidadeAditivos");
-        // quantidadeAditivos.value = dataValues[25];
-        // let tipoAditivo = document.getElementById("tipoAditivo");
-        // tipoAditivo.value = dataValues[26];
-        // let dataAditivo = document.getElementById("dataAditivo");
-        // dataAditivo.value = dataValues[27];
-        // let descricaoAditivo = document.getElementById("descricaoAditivo");
-        // descricaoAditivo.value = dataValues[28];
       
         // troca a classe do botao para o modo de editar projeto
         $('#btnConfirmarForm').addClass('btnConfirmarEditar').removeClass('btnConfirmarInserir');
@@ -461,31 +505,49 @@ $(document).ready(function() {
         const dataValues = Object.values(data);
         let idProjeto = document.getElementById("idProjeto");
         idProjeto.value = dataValues[0];
-        // alert( "Deseja Realmente Excluir ?" );
     });
 
     // botao confirmar do modalInserirEditar
-    $('div.container').on( 'click', '#btnConfirmarForm', function () {
+    $('div.container').on( 'click', '#btnConfirmarForm', async function () {
         const data = tabela.row( $(this).parents('tr') ).data(); // recupera um objeto que representa a row na qual o botao foi clicado
         const modal = document.getElementById('modalInserirEditar');
 
-        if( $('#btnConfirmarForm').hasClass("btnConfirmarInserir") ) {
-          // alert( "Inserindo projeto" );
-          adicionarProjetoDB();
-          $('#modalInserirEditar').modal('hide');
+        limparMensagensDeErro();
+
+        console.log('validando projeto ...');
+        let projeto = projetoArray();
+
+        if (validaProjeto(projeto)){
+            if( $('#btnConfirmarForm').hasClass("btnConfirmarInserir") ) {
+                const resultado = await adicionarProjetoDB();
+
+                if(resultado == true){
+                    $('#modalInserirEditar').modal('hide');
+                } else {
+                    limparMensagensDeErro();
+                    exibirMensagensDeErro(resultado);
+                }
+              }
+              
+            if($('#btnConfirmarForm').hasClass("btnConfirmarEditar")) {
+                const resultado = await atualizaProjetoDB();
+                if(resultado == true){
+                    $('#modalInserirEditar').modal('hide');
+                } else {
+                    limparMensagensDeErro();
+                    exibirMensagensDeErro(resultado);
+                }
+            }
+        } else {
+            console.log('Erro ao inserir/atualizar projeto...');
         }
         
-        if($('#btnConfirmarForm').hasClass("btnConfirmarEditar")) {
-            // alert( "Editando projeto");
-            atualizaProjetoDB();
-            $('#modalInserirEditar').modal('hide');
-        }
     });
 
     // botao excluir do modalExcluir
     $('div.container').on( 'click', '#btnExcluirForm', function () {
         deletarProjetoDB();
         $('#modalExcluir').modal('hide');
-        alert( "Projeto excluído com sucesso!");
+        
     });
 });

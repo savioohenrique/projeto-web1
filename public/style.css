@@ -1,0 +1,144 @@
+#btnInserirProjeto {
+    margin-bottom: 0px !important;
+}
+
+/* configuracoes visuais da tabela*/
+#table tbody > tr > td {
+    white-space: nowrap;
+    word-wrap:break-word;
+    background-color: white;
+    border-color: rgb(151, 150, 150);
+}
+
+thead {
+    white-space: nowrap;
+    background-color: rgb(192, 216, 243);
+    border: 5px  rgb(151, 150, 150);
+}
+
+html {
+    min-height:100%;
+}
+
+body {
+    background-color: lightsteelblue;
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+    min-height: 100%;
+    position: relative;
+    min-width: 250px !important;
+    /* min-width: 800px; */
+    
+}
+
+footer {
+    background-image: linear-gradient(to right, #1a2f3f, #304d63) !important;
+    min-height: 100%;
+}
+
+/* ###  Sobreescrevendo os botões gerados pelo colvis do dataTables, baseado nas configuracoes css do padrão btn btn-primary do bootstrap com algumas modificacoes ### */
+.dt-buttons {
+    background: #6c757d !important;
+    color: #ffffff !important;
+    border-radius: 5px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.buttons-columnVisibility {
+    background: rgb(164, 166, 168) !important;
+    color: #ffffff;
+    padding: 14px 24px;
+    border: 0 none;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border-radius: 5px !important;
+}
+/* mudar configuracoes do span dos botoes(os que aparecem depois de clicar no botao ativar/desativar) de visibilidade das colunas */
+.buttons-columnVisibility > span{
+    color: #ffffff;
+    font-size: 0.7rem;
+}
+
+.buttons-columnVisibility:active, .buttons-columnVisibility.active {
+    background: #5c636a !important;
+    box-shadow: none;
+    color: #ffffff;
+    padding: 14px 24px;
+    border: 0 none;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border-radius: 5px !important;
+    
+}
+.dt-button-collection{
+    width: 350px !important;
+    max-height: 400px !important;
+    text-align: center !important;
+    display: block;
+    position: absolute;
+    overflow: auto !important;
+    white-space: nowrap;
+}
+
+.buttons-colvis {
+    width: 100%;
+}
+
+.buttons-columnVisibility:focus, .buttons-columnVisibility:active:focus, .buttons-columnVisibility.active:focus {
+    outline: 0 none;
+}
+
+.buttons-columnVisibility:hover, .buttons-columnVisibility:focus, .open > .dropdown-toggle.buttons-columnVisibility {
+    background: #777777 !important;
+}
+
+/* ### Animacoes de gradiente do background ### */
+.animated-gradient {
+    animation: animateBg 60s linear infinite;
+    background-image: linear-gradient(120deg,#b0c4de,#85a1c5,#b0c4de,#85a1c5);
+    background-size: 300% 100%;
+}
+
+.dataTables_filter {
+    text-align: right !important;
+}
+
+.dataTables_filter > label > input {
+    height: 38px; 
+    margin-bottom: 15px;
+}
+
+.navbar {
+    background-image: linear-gradient(to right, #1a2f3f, #304d63) !important;
+}
+
+#listaMensagensErro > * {
+    color: red;
+}
+
+
+
+@keyframes animateBg {
+    0% { background-position: 0% 0%; }
+    100% { background-position: 100% 0%; }
+}
+
+@media screen and (max-width: 380px) {
+    .dt-button-collection {
+      width: 100% !important;
+    }
+}
+
+@media screen and (max-width: 640px) {
+    .dataTables_filter * {
+        margin-top: 8px;
+        width: 100% !important;
+        margin-left: 0px !important;
+        
+    }
+}

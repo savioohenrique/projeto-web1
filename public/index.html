@@ -5,52 +5,24 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Gerenciador de Projetos</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
     <link href="https://cdn.datatables.net/1.11.0/css/dataTables.bootstrap5.min.css" rel="stylesheet"> <!-- dataTables -->
     <link href="https://cdn.datatables.net/buttons/1.7.1/css/buttons.dataTables.min.css" rel="stylesheet"> <!-- dataTables -->
-    <style>
-        /* #table tbody td div {
-            width:160px;
-            height:28px;
-            overflow:hidden;
-            word-wrap:break-word;
-        } */
-        #table tbody > tr > td {
-            white-space: nowrap;
-            /* width:160px; */
-            /* height:60px; */
-            overflow:hidden;
-            word-wrap:break-word;
-            background-color: white;
-            border-color: rgb(151, 150, 150);
-            
-        }
-
-        thead {
-            /* background-color: #7fc0fd; */
-            /* color: rgb(241, 237, 237); */
-            white-space: nowrap;
-            background-color: rgb(192, 216, 243);
-            border: 5px  rgb(151, 150, 150);
-        }
-        
-        /* th {
-            font-weight: normal;
-        } */
-
-        body {
-            background-color: lightsteelblue;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css"> <!-- arquivo de estilos da pagina index.html -->
 </head>
 
-<body>
+<body class="animated-gradient d-flex flex-column min-vh-100">
+    <nav class="navbar navbar-dark bg-primary">
+        <div class="container-fluid justify-content-center">
+            <span class="navbar-brand mb-1 h1">Gerenciador de Projetos</span>
+        </div>
+    </nav>
     <div class="container">
         <!-- Button to Open the Modal -->
-        <div class="d-grid gap-2 col-12 mx-auto" style="margin-top: 2em">
-            <button id="btnInserirProjeto" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalInserirEditar">
+        <div class="d-grid gap-2 col-12 mx-auto mt-4">
+            <button id="btnInserirProjeto" type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#modalInserirEditar">
                 Inserir Projeto
             </button>
         </div>
@@ -102,11 +74,11 @@
                                 <input type="number" id="idProjeto" class="form-control" >
                             </div>
                             <div class="form-group">
-                                <label for="anoRegistro" class="col-form-label">Número / Ano Registro</label>
+                                <label for="anoRegistro" class="col-form-label">Número / Ano Registro *</label>
                                 <input type="text" name="ano-registro" id="anoRegistro" class="form-control" required>
                             </div>
                             <div class="form-group">
-                                <label for="projeto" class="col-form-label">Projeto</label>
+                                <label for="projeto" class="col-form-label">Projeto *</label>
                                 <input type="text" name="projeto" id="projeto" class="form-control" required>
                             </div>
                             <div class="form-group">
@@ -114,11 +86,11 @@
                                 <input type="text" name="numeroFunpec" id="numeroFunpec" class="form-control">
                             </div>
                             <div class="form-group">
-                                <label for="tituloProjeto" class="col-form-label">Título do Projeto</label>
+                                <label for="tituloProjeto" class="col-form-label">Título do Projeto *</label>
                                 <input type="text" name="tituloProjeto" id="tituloProjeto" class="form-control" required>
                             </div>
                             <div class="form-group">
-                                <label for="ambito" class="col-form-label">Âmbito</label>      
+                                <label for="ambito" class="col-form-label">Âmbito *</label>      
                                 <select id="ambito" class="form-select" required>
                                     <option></option>
                                     <option value="1">Municipal</option>
@@ -128,11 +100,11 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="parceiro" class="col-form-label">Parceiro</label>
+                                <label for="parceiro" class="col-form-label">Parceiro *</label>
                                 <input type="text" name="parceiro" id="parceiro" class="form-control" required>
                             </div>
                             <div class="form-group">
-                                <label for="tipoFinanciamento" class="col-form-label">Tipo de Financiamento</label>
+                                <label for="tipoFinanciamento" class="col-form-label">Tipo de Financiamento *</label>
                                 <select id="tipoFinanciamento" class="form-select" required>
                                     <option></option>
                                     <option value="1">Privado</option>
@@ -142,7 +114,7 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="classificacaoProjeto" class="col-form-label">Classificação do Projeto</label>
+                                <label for="classificacaoProjeto" class="col-form-label">Classificação do Projeto *</label>
                                 <select id="classificacaoProjeto" class="form-select" required>
                                     <option></option>
                                     <option value="1">Acordos, termos e contratos</option>
@@ -164,15 +136,15 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="dataInicio" class="col-form-label">Data Início</label>
+                                <label for="dataInicio" class="col-form-label">Data Início *</label>
                                 <input type="date" id="dataInicio" class="form-control" required>
                             </div>
                             <div class="form-group">
-                                <label for="dataFim" class="col-form-label">Data Fim</label>
+                                <label for="dataFim" class="col-form-label">Data Fim *</label>
 		                        <input type="date" id="dataFim" class="form-control" required>
                             </div>
                             <div class="form-group">
-                                <label for="status" class="col-form-label">Status</label>
+                                <label for="status" class="col-form-label">Status *</label>
                                 <select id="status" class="form-select" required>
                                     <option></option>
                                     <option value="1">Ativo</option>
@@ -182,11 +154,11 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="valor" class="col-form-label">Valor R$</label>
+                                <label for="valor" class="col-form-label">Valor R$ *</label>
                                 <input type="text" id="valor" class="form-control">
                             </div>
                             <div class="form-group">
-                                <label for="unidade" class="col-form-label">Unidade Interessada</label>
+                                <label for="unidade" class="col-form-label">Unidade Interessada *</label>
                                 <input type="text" id="unidade" class="form-control" required>
                             </div>
                             <div class="form-group">
@@ -199,35 +171,38 @@
                             </div>
                             <div class="form-group">
                                 <label for="quantidadeDocentes" class="col-form-label">Docentes</label>
-                                <input type="number" id="quantidadeDocentes" class="form-control" value="0">
+                                <input type="number" id="quantidadeDocentes" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label for="quantidadeGraduacao" class="col-form-label">Bolsista Graduação</label>
-                                <input type="number" id="quantidadeGraduacao" class="form-control" value="0">
+                                <input type="number" id="quantidadeGraduacao" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label for="quantidadeEspecializacao" class="col-form-label">Bolsista Especialista</label>
-                                <input type="number" id="quantidadeEspecializacao" class="form-control" value="0" >
+                                <input type="number" id="quantidadeEspecializacao" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label for="quantidadeMestrado" class="col-form-label">Bolsista Mestrado</label>
-                                <input type="number" id="quantidadeMestrado" class="form-control" value="0" >
+                                <input type="number" id="quantidadeMestrado" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label for="quantidadeDoutorado" class="col-form-label">Bolsista Doutorado</label>
-                                <input type="number" id="quantidadeDoutorado"  class="form-control" value="0">
+                                <input type="number" id="quantidadeDoutorado"  class="form-control">
                             </div>
                             <div class="form-group">
                                 <label for="quantidadeConvidado" class="col-form-label">Especialista convidado</label>
-                                <input type="number" id="quantidadeConvidado" class="form-control" value="0">
+                                <input type="number" id="quantidadeConvidado" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label for="quantidadeCLT" class="col-form-label">CLT</label>
-                                <input type="number" id="quantidadeCLT" class="form-control" value="0">
+                                <input type="number" id="quantidadeCLT" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label for="quantidadeTecnico" class="col-form-label">Técnico UFRN</label>
-                                <input type="number" id="quantidadeTecnico" class="form-control" value="0">
+                                <input type="number" id="quantidadeTecnico" class="form-control">
+                            </div>
+                            <div>
+                                <ul id="listaMensagensErro"></ul>
                             </div>
                         </form>
                     </div>
@@ -281,6 +256,10 @@
             </tbody>
         </table>
     </div>
+
+    <footer class="bg-primary mt-auto">
+        <p class="text-center text-white pt-3">2021 - Disciplina Desenvolvimento de Sistemas Web </p>
+    </footer>
 
     <!-- jquery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"
