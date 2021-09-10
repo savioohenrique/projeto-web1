@@ -6,7 +6,7 @@ const validar = require('./validation')
 
 const app = express()
 
-// app.use("/static", express.static("public"))
+const porta = 3000
 
 app.use((req, res, next) => {
 	//Qual site tem permissão de realizar a conexão, no exemplo abaixo está o "*" indicando que qualquer site pode fazer a conexão
@@ -97,5 +97,5 @@ app.delete('/projetos&id=:index', async (req, res) => {
     }
 })
 
-app.listen(3000)
-console.log('Servidor rodando na porta 3000...')
+app.listen(porta)
+console.log('Servidor rodando na porta ' + porta +'...')

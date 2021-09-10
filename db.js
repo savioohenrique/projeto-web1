@@ -3,6 +3,7 @@ async function connect(){
         return global.connection;
 
     const mysql = require('mysql2/promise');
+    // Driver de conexão ao banco: "mysql://usuario:senha@host:porta/database"
     const connection = await mysql.createConnection("mysql://root:rootmysql@localhost:3306/projetos");
     console.log("Conexão estabelecida");
     globalThis.connection = connection;
@@ -17,7 +18,7 @@ async function selectProjetos(){
     'JOIN tipo_financiamento tf ON p.tipo_financiamento_id = tf.id ' +
     'JOIN classificacao_projeto cp ON p.classificacao_projeto_id = cp.id ' +
     'JOIN tipo_captacao_recurso tcr ON p.tipo_captacao_recurso_id = tcr.id ' +
-    'JOIN status s ON p.status_id = s.id;'
+    'JOIN status s ON p.status_id = s.id;';
     
     const [rows] = await conn.query(sql);
     return rows;
@@ -90,7 +91,7 @@ async function updateProjeto(id, projeto){
 
 async function deleteProjeto(id) {
     const conn = await connect();
-    const sql = 'DELETE FROM projetos WHERE id = ?'
+    const sql = 'DELETE FROM projetos WHERE id = ?';
     const [affectedRows] = await conn.query(sql, id);
     return affectedRows;
 }
