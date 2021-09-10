@@ -181,3 +181,37 @@ ENGINE = InnoDB;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+
+insert into ambito (ambito) values ('Municipal');
+insert into ambito (ambito) values ('Estadual');
+insert into ambito (ambito) values ('Nacional');
+insert into ambito (ambito) values ('Internacional');
+
+insert into tipo_financiamento (financiamento) values ('Privado');
+insert into tipo_financiamento (financiamento) values ('Público - Municipal');
+insert into tipo_financiamento (financiamento) values ('Público - Estadual');
+insert into tipo_financiamento (financiamento) values ('Público - Federal');
+
+insert into classificacao_projeto (classificacao) values ('Acordos, termos e contratos');
+insert into classificacao_projeto (classificacao) values ('Ensino - Especialização (Residência)');
+insert into classificacao_projeto (classificacao) values ('Ensino - Mestrado Profissional');
+insert into classificacao_projeto (classificacao) values ('Evento');
+insert into classificacao_projeto (classificacao) values ('PD&I');
+insert into classificacao_projeto (classificacao) values ('PD&I - Lei da Informática');
+
+insert into tipo_captacao_recurso (tipo_captacao) values ('A');
+insert into tipo_captacao_recurso (tipo_captacao) values ('B');
+insert into tipo_captacao_recurso (tipo_captacao) values ('C');
+insert into tipo_captacao_recurso (tipo_captacao) values ('D');
+
+insert into status (status) values ('Ativo');
+insert into status (status) values ('Cancelado');
+insert into status (status) values ('Registrado');
+insert into status (status) values ('Vencido');
+
+insert into tipo_aditivo (nome_aditivo) values ('Nenhum');
+insert into tipo_aditivo (nome_aditivo) values ('Modificação de metas ou outros');
+insert into tipo_aditivo (nome_aditivo) values ('Prazo');
+insert into tipo_aditivo (nome_aditivo) values ('Prazo e Valor');
+insert into tipo_aditivo (nome_aditivo) values ('Valor');
