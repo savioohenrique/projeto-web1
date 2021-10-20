@@ -6,7 +6,7 @@ const validar = require('./validation')
 
 const app = express()
 
-const porta = 3000
+const porta = 80
 
 app.use((req, res, next) => {
 	//Qual site tem permissão de realizar a conexão, no exemplo abaixo está o "*" indicando que qualquer site pode fazer a conexão
