@@ -97,5 +97,5 @@ app.delete('/projetos&id=:index', async (req, res) => {
     }
 })
 
-app.listen(porta)
+app.listen(port)
 console.log('Servidor rodando na porta ' + port )
