@@ -1,12 +1,12 @@
 const express = require('express')
 const cors = require('cors')
 
-const db = require('./db')
-const validar = require('./validation')
+const db = require('./db');
+const validar = require('./validation');
 
-const app = express()
+const app = express();
 
-const porta = 80
+const port = process.env.PORT || 80;
 
 app.use((req, res, next) => {
 	//Qual site tem permissão de realizar a conexão, no exemplo abaixo está o "*" indicando que qualquer site pode fazer a conexão
@@ -98,4 +98,4 @@ app.delete('/projetos&id=:index', async (req, res) => {
 })
 
 app.listen(porta)
-console.log('Servidor rodando na porta ' + porta +'...')
+console.log('Servidor rodando na porta ' + port )
