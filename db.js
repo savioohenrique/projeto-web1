@@ -4,7 +4,7 @@ async function connect() {
  
     const { Pool } = require('pg');
     const pool = new Pool({
-        connectionString: 'postgres://zisnkjmyowzhok:3d97c4632b68f406a0fef013d00f76e262a1deb58cca66095a45e83c7313ada4@ec2-52-3-239-135.compute-1.amazonaws.com:5432/depmg3qnubjes5'
+        connectionString: ''
     });
  
     //guardando para usar sempre o mesmo
