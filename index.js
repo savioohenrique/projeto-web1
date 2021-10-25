@@ -6,7 +6,9 @@ const validar = require('./validation');
 
 const app = express();
 
-const port = process.env.PORT || 80;
+require('dotenv').config();
+
+const port = process.env.PORT || 3000;
 
 app.use((req, res, next) => {
 	//Qual site tem permissão de realizar a conexão, no exemplo abaixo está o "*" indicando que qualquer site pode fazer a conexão
