@@ -4,10 +4,9 @@ async function connect() {
  
     const { Pool } = require('pg');
     const pool = new Pool({
-        connectionString: ''
+        connectionString: process.env.DATABASE
     });
  
-    //guardando para usar sempre o mesmo
     global.connection = pool;
     return pool.connect();
 }
