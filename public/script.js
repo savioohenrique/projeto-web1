@@ -28,7 +28,7 @@ let listarProjetos = async function () {
 
 // Realiza a requisição ao banco e retorna os projetos cadastrados
 async function buscarProjetos() {
-  let url = 'http://localhost:3000/projetos';
+  let url = process.env.URL;
   try {
       let response = await fetch(url, {
           method: 'GET',
@@ -178,7 +178,7 @@ async function adicionarProjetoDB() {
     let projeto = projetoArray();
 
     if (validaProjeto(projeto)){
-        const resultado = await postProjeto('http://localhost:3000/projetos', projeto);
+        const resultado = await postProjeto(process.env.URL + 'projetos', projeto);
 
         if (resultado == true){
             alert("Projeto cadastrado com sucesso.");
@@ -198,7 +198,7 @@ async function atualizaProjetoDB() {
     let projetoId = document.getElementById("idProjeto").value;
     console.log("Atualizando projeto " + projetoId + "...");
 
-    let url = 'http://localhost:3000/projetos&id=' + projetoId;
+    let url = process.env.URL + 'projetos&id=' + projetoId;
     
     let projeto = projetoArray();
 
@@ -221,7 +221,7 @@ async function deletarProjetoDB() {
     let projetoId = document.getElementById("idProjeto").value;
     console.log("Deletando projeto " + projetoId + "...");
 
-    let url = 'http://localhost:3000/projetos&id=' + projetoId;
+    let url = process.env.URL + 'projetos&id=' + projetoId;
 
     const resultado = await deleteProjeto(url);
 
